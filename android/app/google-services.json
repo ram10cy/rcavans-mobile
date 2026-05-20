@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "946378975479",
+    "project_id": "rcone-e28fe",
+    "storage_bucket": "rcone-e28fe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946378975479:android:a4faac487b29c8c75bcbf2",
+        "android_client_info": {
+          "package_name": "com.ramadancemil.rcavans"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpJWaSa-6y7V_YjkhbHjHdfmPmzv3eAtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
