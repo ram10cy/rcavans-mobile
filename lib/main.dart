@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/connectivity.dart';
 import 'core/fcm_service.dart';
+import 'core/offline_screen.dart';
 import 'router.dart';
 
 const Color kBrandRed = Color(0xFFE30613);
@@ -81,6 +83,20 @@ class RcavansApp extends ConsumerWidget {
         ),
       ),
       routerConfig: router,
+      builder: (context, child) {
+        return Consumer(
+          builder: (context, ref, _) {
+            // Belirsiz/yukleniyor durumunda cevrimici varsay (overlay gosterme).
+            final online = ref.watch(connectivityProvider).value ?? true;
+            return Stack(
+              children: [
+                if (child != null) child,
+                if (!online) const OfflineScreen(),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }
