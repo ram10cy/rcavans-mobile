@@ -5,7 +5,7 @@ import 'secure_storage.dart';
 
 const apiBaseUrl = String.fromEnvironment(
   'API_BASE',
-  defaultValue: 'http://10.0.2.2:8000/api',
+  defaultValue: 'https://one.ramadancemil.org:54/api',
 );
 
 final dioProvider = Provider<Dio>((ref) {
