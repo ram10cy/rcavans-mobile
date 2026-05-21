@@ -7,6 +7,7 @@ class User {
   final String name;
   final String email;
   final String? phone;
+  final String? avatarUrl;
   final List<String> roles;
   final UserSide side;
   final Balance? balance;
@@ -16,6 +17,7 @@ class User {
     required this.name,
     required this.email,
     this.phone,
+    this.avatarUrl,
     required this.roles,
     required this.side,
     this.balance,
@@ -34,6 +36,7 @@ class User {
       name: json['name'] as String,
       email: json['email'] as String,
       phone: json['phone'] as String?,
+      avatarUrl: json['avatar_url'] as String?,
       roles: List<String>.from(json['roles'] as List? ?? const []),
       side: side,
       balance: balanceJson is Map<String, dynamic>

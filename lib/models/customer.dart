@@ -5,6 +5,7 @@ class Customer {
   final String? taxOffice;
   final String? phone;
   final String? email;
+  final String? imageUrl;
 
   const Customer({
     required this.id,
@@ -13,6 +14,7 @@ class Customer {
     this.taxOffice,
     this.phone,
     this.email,
+    this.imageUrl,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
@@ -22,5 +24,6 @@ class Customer {
         taxOffice: json['tax_office'] as String?,
         phone: json['phone'] as String?,
         email: json['email'] as String?,
+        imageUrl: json['image_url'] as String?,
       );
 }

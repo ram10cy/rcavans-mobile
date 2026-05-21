@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../core/customer_avatar.dart';
 import '../../core/formatters.dart';
+import '../../models/customer.dart';
 import '../../models/transaction.dart';
 import 'transactions_repository.dart';
 
@@ -138,7 +140,7 @@ class ReceiptCard extends StatelessWidget {
                 t.createdAt != null ? formatDate(t.createdAt!) : '-',
                 style: mono),
             _line('Kullanıcı', t.user?.name ?? '-', style: mono),
-            _line('Cari', t.customer?.name ?? '-', style: mono),
+            _customerLine(t.customer, mono),
             _line('Açıklama',
                 (t.description == null || t.description!.isEmpty)
                     ? '—'
@@ -210,6 +212,23 @@ class ReceiptCard extends StatelessWidget {
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _customerLine(Customer? customer, TextStyle style) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 100,
+            child: Text('Cari:', style: style.copyWith(color: Colors.grey)),
+          ),
+          CustomerAvatar(customer: customer, size: 30),
+          const SizedBox(width: 8),
+          Expanded(child: Text(customer?.name ?? '-', style: style)),
+        ],
       ),
     );
   }

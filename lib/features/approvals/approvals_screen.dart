@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/app_control.dart';
+import '../../core/customer_avatar.dart';
 import '../../core/formatters.dart';
 import '../../core/paginated_list_view.dart';
 import '../../core/refresh_providers.dart';
@@ -82,6 +83,7 @@ class _ApprovalsScreenState extends ConsumerState<ApprovalsScreen>
             ),
         emptyMessage: 'Kayıt yok.',
         itemBuilder: (context, t) => ListTile(
+          leading: CustomerAvatar(customer: t.customer, size: 44),
           title: Text('${formatTl(t.amount)} • ${t.user?.name ?? '-'}'),
           subtitle: Text([
             t.customer?.name ?? '',

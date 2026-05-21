@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/app_control.dart';
+import '../../core/customer_avatar.dart';
 import '../../core/formatters.dart';
 import '../../core/paginated_list_view.dart';
 import '../../core/refresh_providers.dart';
@@ -123,6 +124,7 @@ class TransactionsScreen extends ConsumerWidget {
               ),
         itemBuilder: (context, t) => ListTile(
           onTap: () => context.push('/receipts/${t.id}'),
+          leading: CustomerAvatar(customer: t.customer, size: 44),
           title:
               Text('${formatTl(t.amount)} • ${t.customer?.name ?? '-'}'),
           subtitle: Text([
