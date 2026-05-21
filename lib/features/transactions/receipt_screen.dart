@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../core/customer_avatar.dart';
@@ -8,27 +11,129 @@ import '../../models/customer.dart';
 import '../../models/transaction.dart';
 import 'transactions_repository.dart';
 
-class ReceiptScreen extends ConsumerWidget {
+class ReceiptScreen extends ConsumerStatefulWidget {
   const ReceiptScreen({super.key, required this.id});
   final int id;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tx = ref.watch(transactionDetailProvider(id));
+  ConsumerState<ReceiptScreen> createState() => _ReceiptScreenState();
+}
+
+class _ReceiptScreenState extends ConsumerState<ReceiptScreen> {
+  Timer? _timer;
+  TxStatus? _initialStatus;
+  bool _celebrated = false;
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  /// Her veri geldiğinde post-frame çağrılır: ilk durumu kaydeder,
+  /// onay bekleyen bir fiş ise durumu periyodik yoklar.
+  void _handleData(TransactionItem t) {
+    if (_initialStatus == null) {
+      _initialStatus = t.status;
+      if (t.status == TxStatus.pending) {
+        _timer = Timer.periodic(const Duration(seconds: 3), (_) {
+          ref.invalidate(transactionDetailProvider(widget.id));
+        });
+      }
+      return;
+    }
+
+    // Onay bekleyen fiş, ekran açıkken onaylandıysa kutlama göster.
+    if (!_celebrated &&
+        _initialStatus == TxStatus.pending &&
+        t.status == TxStatus.approved) {
+      _celebrated = true;
+      _timer?.cancel();
+      _showApproved();
+    } else if (t.status != TxStatus.pending) {
+      _timer?.cancel();
+    }
+  }
+
+  void _showApproved() {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const _ApprovedDialog(),
+    );
+    Future.delayed(const Duration(milliseconds: 2300), () {
+      if (!mounted) return;
+      Navigator.of(context, rootNavigator: true).pop();
+      context.go('/transactions');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tx = ref.watch(transactionDetailProvider(widget.id));
     return Scaffold(
       appBar: AppBar(title: const Text('Fiş')),
       body: tx.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) =>
             Padding(padding: const EdgeInsets.all(24), child: Text('Hata: $e')),
-        data: (t) => SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: ReceiptCard(t: t),
+        data: (t) {
+          WidgetsBinding.instance
+              .addPostFrameCallback((_) => _handleData(t));
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 480),
+                child: ReceiptCard(t: t),
+              ),
             ),
-          ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Harcama onaylandığında gösterilen tam ekran kutlama animasyonu.
+class _ApprovedDialog extends StatelessWidget {
+  const _ApprovedDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: 1),
+        duration: const Duration(milliseconds: 650),
+        curve: Curves.elasticOut,
+        builder: (context, value, child) =>
+            Transform.scale(scale: value.clamp(0.0, 1.0), child: child),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 120,
+              height: 120,
+              decoration: const BoxDecoration(
+                color: Color(0xFF1F9D4D),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.check_rounded,
+                  color: Colors.white, size: 76),
+            ),
+            const SizedBox(height: 22),
+            const Text('Onaylandı!',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800)),
+            const SizedBox(height: 6),
+            const Text('Harcamanız cari tarafından onaylandı.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white70, fontSize: 14)),
+          ],
         ),
       ),
     );

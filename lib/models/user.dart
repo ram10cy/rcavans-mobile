@@ -8,6 +8,10 @@ class User {
   final String email;
   final String? phone;
   final String? avatarUrl;
+  final String? department;
+  final String? jobTitle;
+  final String? cardNumber;
+  final String? cardVerifyUrl;
   final List<String> roles;
   final UserSide side;
   final Balance? balance;
@@ -18,6 +22,10 @@ class User {
     required this.email,
     this.phone,
     this.avatarUrl,
+    this.department,
+    this.jobTitle,
+    this.cardNumber,
+    this.cardVerifyUrl,
     required this.roles,
     required this.side,
     this.balance,
@@ -37,6 +45,10 @@ class User {
       email: json['email'] as String,
       phone: json['phone'] as String?,
       avatarUrl: json['avatar_url'] as String?,
+      department: json['department'] as String?,
+      jobTitle: json['job_title'] as String?,
+      cardNumber: json['card_number'] as String?,
+      cardVerifyUrl: json['card_verify_url'] as String?,
       roles: List<String>.from(json['roles'] as List? ?? const []),
       side: side,
       balance: balanceJson is Map<String, dynamic>

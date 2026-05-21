@@ -8,6 +8,7 @@ import 'features/approvals/qr_scan_screen.dart';
 import 'features/assignments/assignments_screen.dart';
 import 'features/auth/auth_notifier.dart';
 import 'features/auth/login_screen.dart';
+import 'features/profile/id_card_screen.dart';
 import 'features/profile/profile_screen.dart';
 import 'features/transactions/breakdown_screen.dart';
 import 'features/transactions/customer_transactions_screen.dart';
@@ -76,6 +77,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               id: int.parse(s.pathParameters['id']!))),
       GoRoute(path: '/scan', builder: (_, __) => const QrScanScreen()),
       GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
+      GoRoute(path: '/id-card', builder: (_, __) => const IdCardScreen()),
     ],
   );
 });
