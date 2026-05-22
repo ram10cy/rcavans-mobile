@@ -165,6 +165,18 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: () => context.push('/izinler'),
+              icon: const Icon(Icons.event_available_outlined),
+              label: const Text('İzinlerim'),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
           ],
           const SizedBox(height: 28),
           OutlinedButton.icon(
