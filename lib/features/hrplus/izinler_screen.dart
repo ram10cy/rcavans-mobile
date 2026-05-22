@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../models/hrplus_izin.dart';
 import 'izin_repository.dart';
@@ -39,6 +40,11 @@ class IzinlerScreen extends ConsumerWidget {
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        label: const Text('İzin Talebi'),
+        onPressed: () => context.push('/izinler/yeni'),
+      ),
       appBar: AppBar(
         title: const Text('İzinlerim'),
         actions: [

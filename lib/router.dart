@@ -10,6 +10,7 @@ import 'features/auth/auth_notifier.dart';
 import 'features/auth/login_screen.dart';
 import 'features/hrplus/cagri_ekle_screen.dart';
 import 'features/hrplus/cagrilar_screen.dart';
+import 'features/hrplus/izin_ekle_screen.dart';
 import 'features/hrplus/izinler_screen.dart';
 import 'features/profile/id_card_screen.dart';
 import 'features/profile/profile_screen.dart';
@@ -86,6 +87,9 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: '/cagrilar/yeni',
           builder: (_, __) => const CagriEkleScreen()),
       GoRoute(path: '/izinler', builder: (_, __) => const IzinlerScreen()),
+      GoRoute(
+          path: '/izinler/yeni',
+          builder: (_, __) => const IzinEkleScreen()),
     ],
   );
 });

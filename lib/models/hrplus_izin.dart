@@ -74,3 +74,21 @@ class IzinlerData {
 
   const IzinlerData({required this.kalanHak, required this.izinler});
 }
+
+/// Talep edilebilir izin türü.
+class IzinTuru {
+  final int tip;
+  final String ad;
+  final bool saatlik;
+
+  const IzinTuru({required this.tip, required this.ad, required this.saatlik});
+
+  factory IzinTuru.fromJson(Map<String, dynamic> json) => IzinTuru(
+        tip: json['tip'] as int,
+        ad: json['ad'] as String,
+        saatlik: json['saatlik'] as bool? ?? false,
+      );
+}
+
+/// Açıklamanın zorunlu olduğu izin türleri (idari izinler).
+const kAciklamaZorunluTipler = <int>[7, 10];
