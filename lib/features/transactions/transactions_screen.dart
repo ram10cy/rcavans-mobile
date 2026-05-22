@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/app_control.dart';
+import '../../core/app_menu.dart';
 import '../../core/customer_avatar.dart';
 import '../../core/formatters.dart';
 import '../../core/paginated_list_view.dart';
@@ -42,16 +42,7 @@ class TransactionsScreen extends ConsumerWidget {
               ref.read(transactionsRefreshProvider.notifier).bump();
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            tooltip: 'Hesabım',
-            onPressed: () => context.push('/profile'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            tooltip: 'Uygulamadan çık',
-            onPressed: moveAppToBackground,
-          ),
+          const AppMenuButton(),
         ],
       ),
       body: PaginatedListView<TransactionItem>(

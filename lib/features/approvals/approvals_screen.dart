@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/app_control.dart';
+import '../../core/app_menu.dart';
 import '../../core/customer_avatar.dart';
 import '../../core/formatters.dart';
 import '../../core/paginated_list_view.dart';
@@ -53,16 +53,7 @@ class _ApprovalsScreenState extends ConsumerState<ApprovalsScreen>
             onPressed: () =>
                 ref.read(approvalsRefreshProvider.notifier).bump(),
           ),
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            tooltip: 'Hesabım',
-            onPressed: () => context.push('/profile'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            tooltip: 'Uygulamadan çık',
-            onPressed: moveAppToBackground,
-          ),
+          const AppMenuButton(),
         ],
         bottom: TabBar(
           controller: _tab,

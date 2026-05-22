@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../core/formatters.dart';
 import '../../models/user.dart';
@@ -137,56 +136,6 @@ class ProfileScreen extends ConsumerWidget {
                     value: formatTl(user.balance!.assigned),
                   ),
                 ],
-              ),
-            ),
-          ],
-          if (user.isCompany) ...[
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: () => context.push('/id-card'),
-              icon: const Icon(Icons.badge_outlined),
-              label: const Text('Kimliğimi Göster'),
-              style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              onPressed: () => context.push('/cagrilar'),
-              icon: const Icon(Icons.headset_mic_outlined),
-              label: const Text('Destek Çağrılarım'),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              onPressed: () => context.push('/izinler'),
-              icon: const Icon(Icons.event_available_outlined),
-              label: const Text('İzinlerim'),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              onPressed: () => context.push('/izin-onaylar'),
-              icon: const Icon(Icons.fact_check_outlined),
-              label: const Text('İzin Onayları'),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
               ),
             ),
           ],
