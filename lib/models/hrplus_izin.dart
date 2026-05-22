@@ -15,6 +15,7 @@ class IzinItem {
   final String durumLabel;
   final bool ilkAmirOnayli;
   final bool ustAmirOnayli;
+  final String? personelAdi;
 
   const IzinItem({
     required this.id,
@@ -32,6 +33,7 @@ class IzinItem {
     required this.durumLabel,
     required this.ilkAmirOnayli,
     required this.ustAmirOnayli,
+    this.personelAdi,
   });
 
   factory IzinItem.fromJson(Map<String, dynamic> json) {
@@ -53,6 +55,7 @@ class IzinItem {
       durumLabel: json['durum_label'] as String? ?? '',
       ilkAmirOnayli: json['ilk_amir_onayli'] as bool? ?? false,
       ustAmirOnayli: json['ust_amir_onayli'] as bool? ?? false,
+      personelAdi: json['personel_adi'] as String?,
     );
   }
 

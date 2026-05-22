@@ -27,6 +27,17 @@ class IzinRepository {
         .toList();
   }
 
+  Future<List<IzinItem>> onaylar() async {
+    final res = await _dio.get('/hrplus/izin-onaylar');
+    return (res.data['data'] as List)
+        .map((e) => IzinItem.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  Future<void> karar({required int izinId, required String karar}) async {
+    await _dio.post('/hrplus/izinler/$izinId/karar', data: {'karar': karar});
+  }
+
   Future<void> create({
     required int tip,
     required String baslangicGunu,
@@ -56,4 +67,8 @@ final izinlerProvider = FutureProvider.autoDispose<IzinlerData>((ref) {
 
 final izinTurleriProvider = FutureProvider.autoDispose<List<IzinTuru>>((ref) {
   return ref.watch(izinRepositoryProvider).turler();
+});
+
+final izinOnaylarProvider = FutureProvider.autoDispose<List<IzinItem>>((ref) {
+  return ref.watch(izinRepositoryProvider).onaylar();
 });

@@ -177,6 +177,18 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: () => context.push('/izin-onaylar'),
+              icon: const Icon(Icons.fact_check_outlined),
+              label: const Text('İzin Onayları'),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
           ],
           const SizedBox(height: 28),
           OutlinedButton.icon(

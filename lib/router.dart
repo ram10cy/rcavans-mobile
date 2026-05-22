@@ -11,6 +11,7 @@ import 'features/auth/login_screen.dart';
 import 'features/hrplus/cagri_ekle_screen.dart';
 import 'features/hrplus/cagrilar_screen.dart';
 import 'features/hrplus/izin_ekle_screen.dart';
+import 'features/hrplus/izin_onaylar_screen.dart';
 import 'features/hrplus/izinler_screen.dart';
 import 'features/profile/id_card_screen.dart';
 import 'features/profile/profile_screen.dart';
@@ -90,6 +91,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
           path: '/izinler/yeni',
           builder: (_, __) => const IzinEkleScreen()),
+      GoRoute(
+          path: '/izin-onaylar',
+          builder: (_, __) => const IzinOnaylarScreen()),
     ],
   );
 });
